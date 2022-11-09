@@ -1,0 +1,139 @@
+drop table if exists t_months;
+ create temp table t_months(id int, month varchar(25));
+ insert into t_months(id,month)
+ values (1,'January'),
+ (2,'February'),
+ (3,'March'),
+ (4,'April'),
+ (5,'May'),
+ (6,'June'),
+ (7,'July'),
+ (8,'August'),
+ (9,'September'),
+ (10,'October'),
+ (11,'November'),
+ (12,'December');
+
+WITH vars AS (
+SELECT
+(SELECT MAX(pc.value)::BIGINT FROM program_config pc WHERE 1=1 AND pc.program = 'system' AND pc.title = 'DEFAULT_S_YEAR') AS syear
+),
+
+first_data as ( 
+select t.month as month,
+(sum(case when cfso.code in ('308.0', '308.1', '308.2', '308.3', '308.4', '308.5', '308.6', '308.7', '308.8') and (se.syear = (select syear from vars)-1) and extract(month from se.start_date)::BIGINT = t.id::BIGINT  
+ 	then 1 else 0 end))::NUMERIC as Eval_Prior,
+(sum(case when cfso.code in ('308.0', '308.1', '308.2', '308.3', '308.4', '308.5', '308.6', '308.7', '308.8') and (se.syear = (select syear from vars)) and extract(month from se.start_date)::BIGINT = t.id::BIGINT  then 
+ 	1 else 0 end))::VARCHAR as Eval_Selected,
+(sum(case when cfso.code in ('202.4', '202.8', '204.2', '205.6', '205.7', '210.6', '216.2', '216.4', '217.2', '219.3', '219.5', '221.2', '223.4', '223.6', '226.2', '226.3', '226.4', '226.5', '226.6', '227.0', '229.2', 
+ 	'299.8', '299.9') and (se.syear = (select syear from vars)-1) and extract(month from se.start_date)::BIGINT = t.id::BIGINT  then 1 else 0 end))::NUMERIC as Trng_Prior,
+(sum(case when cfso.code in ('202.4', '202.8', '204.2', '205.6', '205.7', '210.6', '216.2', '216.4', '217.2', '219.3', '219.5', '221.2', '223.4', '223.6', '226.2', '226.3', '226.4', '226.5', '226.6', '227.0', '229.2', 
+ 	'299.8', '299.9') and (se.syear = (select syear from vars)) and extract(month from se.start_date)::BIGINT = t.id::BIGINT then 1 else 0 end))::VARCHAR as Trng_Selected,
+(sum(case when cfso.code in ('310.0', '310.1', '310.2', '310.3', '310.4') and (se.syear = (select syear from vars)-1) and extract(month from se.start_date)::BIGINT = t.id::BIGINT then 1 else 0 end))::NUMERIC as 
+ 	CSEP_Prior,
+(sum(case when cfso.code in ('310.0', '310.1', '310.2', '310.3', '310.4') and (se.syear = (select syear from vars)) and extract(month from se.start_date)::BIGINT = t.id::BIGINT then 1 else 0 end))::VARCHAR as 
+ 	CSEP_Selected,
+(sum(case when cfso.code in ('114.0', '114.3') and (se.syear = (select syear from vars)-1) and extract(month from se.start_date)::BIGINT = t.id::BIGINT then 1 else 0 end))::NUMERIC as CART_Prior,
+(sum(case when cfso.code in ('114.0', '114.3') and (se.syear = (select syear from vars)) and extract(month from se.start_date)::BIGINT = t.id::BIGINT then 1 else 0 end))::VARCHAR as CART_Selected,
+(sum(case when cfso.code in ('000.3', '103.0', '104.0', '104.1', '104.2', '105.0', '200.1', '200.3', '200.4', '200.5', '226.7', '309.0', '333.3', '444.4','700.0', '710.0', '710.1')and (se.syear = (select syear from 
+ 	vars)-1) and extract(month from se.start_date)::BIGINT = t.id::BIGINT then 1 else 0 end))::NUMERIC as Other_Prior,
+(sum(case when cfso.code in ('000.3', '103.0', '104.0', '104.1', '104.2', '105.0', '200.1', '200.3', '200.4', '200.5', '226.7', '309.0', '333.3', '444.4','700.0', '710.0', '710.1') and (se.syear = (select syear from 
+ 	vars)) and extract(month from se.start_date)::BIGINT = t.id::BIGINT then 1 else 0 end))::VARCHAR as Other_Selected,
+''  as "Total Prior Year",
+''  as "Total Selected Year",
+max(t.id)::BIGINT as sort
+from students s
+cross join t_months t
+join custom_field_select_options cfso ON (s.custom_fields->>'custom_l4815')::bigint = cfso.id
+left join student_enrollment se on s.student_id = se.student_id 
+	and se.syear between ((select syear from vars) - 1) and (select syear from vars)	and se.start_date between '{START_DATE}' and '{END_DATE}'
+	and se.enrollment_code in ({CODE})
+where 1=1
+	AND date_part('Year',age(custom_200000004)) < 22
+group by 1
+),
+total_year as (
+select 
+sort,
+cast(sum(eval_prior::NUMERIC + Trng_prior::NUMERIC + CSEP_prior::NUMERIC + CART_prior::NUMERIC + Other_Prior::NUMERIC) as VARCHAR) as "Total Prior Year",
+cast(sum(eval_selected::NUMERIC + Trng_selected::NUMERIC + CSEP_selected::NUMERIC + CART_selected::NUMERIC + Other_selected::NUMERIC) as varchar) as "Total Selected Year"
+from first_data 
+group by 1
+) --select * from total_year ;
+,
+data as 
+(
+select 
+fd.month,
+fd.Eval_Prior,
+fd.Eval_Selected,
+fd.Trng_Prior,
+fd.Trng_Selected,
+fd.CSEP_Prior,
+fd.CSEP_Selected,
+fd.CART_Prior,
+fd.CART_Selected,
+fd.Other_Prior,
+fd.Other_Selected,
+ty."Total Prior Year",
+ty."Total Selected Year",
+fd.sort
+from first_data fd 
+join total_year ty on fd.sort = ty.sort 
+
+),
+
+total as (
+select
+'Total' as month,
+cast(sum(Eval_Prior::NUMERIC) as NUMERIC) as Eval_Prior,
+cast(sum(Eval_Selected::NUMERIC) as varchar) as Eval_Selected,
+cast(sum(Trng_Prior::NUMERIC) as NUMERIC) as Trng_Prior,
+cast(sum(Trng_Selected::NUMERIC) as varchar) as Trng_Selected,
+cast(sum(CSEP_Prior::NUMERIC) as NUMERIC) as CSEP_Prior,
+cast(sum(CSEP_Selected::NUMERIC) as varchar) as CSEP_Selected,
+cast(sum(CART_Prior::NUMERIC) as NUMERIC) as CART_Prior,
+cast(sum(CART_Selected::NUMERIC) as varchar) as CART_Selected,
+cast(sum(Other_Prior::NUMERIC) as NUMERIC) as Other_Prior,
+cast(sum(Other_Selected::NUMERIC) as varchar) as Other_Selected,
+cast(sum(eval_prior::NUMERIC + Trng_prior::NUMERIC + CSEP_prior::NUMERIC + CART_prior::NUMERIC + Other_Prior::NUMERIC) as VARCHAR) as "Total Prior Year",
+cast(sum(eval_selected::NUMERIC + Trng_selected::NUMERIC + CSEP_selected::NUMERIC + CART_selected::NUMERIC + Other_selected::NUMERIC) as varchar) as "Total Selected Year",
+'98'::BIGINT as sort
+from data
+
+),
+percents as (
+select 
+'Total Percent Change' as month,
+(Eval_Selected::NUMERIC - Eval_Prior::NUMERIC) as Eval_Prior,
+CONCAT((case when Eval_prior::NUMERIC = 0 and Eval_selected::NUMERIC = 0 then '0.00'
+	when Eval_Prior::NUMERIC = 0 then '100.00' else ROUND(((Eval_Selected::NUMERIC - Eval_Prior::NUMERIC)/ Eval_prior::NUMERIC)*100,2)::NUMERIC end)::VARCHAR, '%') as Eval_Selected,
+(Trng_Selected::NUMERIC - Trng_Prior::NUMERIC) as Trng_Prior,
+CONCAT((case when Trng_prior::NUMERIC = 0 and Trng_selected::NUMERIC = 0 then '0.00'
+	when Trng_Prior::NUMERIC = 0 then '100.00' else ROUND(((Trng_Selected::NUMERIC-Trng_Prior::NUMERIC)/Trng_prior::NUMERIC)*100,2)::NUMERIC end)::VARCHAR, '%') as Trng_Selected,
+(CSEP_Selected::NUMERIC - CSEP_Prior::NUMERIC) as CSEP_Prior,
+Concat((Case when CSEP_prior::NUMERIC = 0 and CSEP_selected::NUMERIC = 0 then '0.00'
+	when CSEP_Prior::NUMERIC = 0 then '100.00' else ROUND(((CSEP_Selected::NUMERIC-CSEP_Prior::NUMERIC)/CSEP_prior::NUMERIC)*100,2)::NUMERIC end)::VARCHAR, '%') as CSEP_Selected,
+(CART_Selected::NUMERIC - CART_Prior::NUMERIC) as CART_Prior,
+CONCAT((Case when Cart_prior::NUMERIC = 0 and Cart_selected::NUMERIC = 0 then '0.00'
+	when CART_Prior::NUMERIC = 0 then '100.00' else ROUND(((CART_Selected::NUMERIC-CART_Prior::NUMERIC)/CART_PRIOR::NUMERIC)*100,2)::NUMERIC end)::VARCHAR, '%') as CART_Selected,
+(Other_Selected::NUMERIC - Other_Prior::NUMERIC) as Other_Prior,
+CONCAT((Case when Other_prior::NUMERIC = 0 and other_selected::NUMERIC = 0 then '0.00'
+	when Other_Prior::NUMERIC = 0 then '100.00' else ROUND(((Other_Selected::NUMERIC-Other_Prior::NUMERIC)/other_prior::NUMERIC)*100,2)::NUMERIC end)::VARCHAR, '%') as Other_Selected,
+("Total Selected Year"::NUMERIC - "Total Prior Year"::NUMERIC )::VARCHAR as "Total Prior Year",
+CONCAT((Case when "Total Prior Year"::NUMERIC = 0 and "Total Selected Year"::NUMERIC = 0 then '0.00'
+	when "Total Prior Year"::NUMERIC = 0 then '100.00' else ROUND((("Total Selected Year"::NUMERIC - "Total Prior Year"::NUMERIC)/"Total Prior Year"::NUMERIC)*100,2)::NUMERIC end)::VARCHAR, '%') as "Total Selected Year",
+'99'::BIGINT as sort
+from total
+)
+select month as "Month", eval_prior as "Evaluation Prior Year", Eval_Selected as "Evaluation Selected Year", Trng_Prior as "Training Prior Year", Trng_Selected as "Training Selected Year", CSEP_Prior as "CSEP Prior Year", CSEP_Selected as "CSEP Selected Year", CART_Prior as "CART Prior Year", CART_Selected as "CART Selected Year", Other_Prior as "Other Prior Year", Other_Selected as "Other Selected Year", 
+"Total Prior Year", "Total Selected Year",sort
+from data
+union
+Select month as Month, eval_prior as "Evaluation Prior Year", Eval_Selected as "Evaluation Selected Year", Trng_Prior as "Training Prior Year", Trng_Selected as "Training Selected Year", CSEP_Prior as "CSEP Prior Year", CSEP_Selected as "CSEP Selected Year", CART_Prior as "CART Prior Year", CART_Selected as "CART Selected Year", Other_Prior as "Other Prior Year", Other_Selected as "Other Selected Year","Total Prior Year", "Total Selected Year", sort
+from  total
+UNION
+Select month as Month, eval_prior as "Evaluation Prior Year", Eval_Selected as "Evaluation Selected Year", Trng_Prior as "Training Prior Year", Trng_Selected as "Training Selected Year", CSEP_Prior as "CSEP Prior Year", CSEP_Selected as "CSEP Selected Year", CART_Prior as "CART Prior Year", CART_Selected as "CART Selected Year", Other_Prior as "Other Prior Year", Other_Selected as "Other Selected Year", 
+"Total Prior Year", "Total Selected Year", sort
+from percents
+order by sort
