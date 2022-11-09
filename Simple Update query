@@ -1,0 +1,12 @@
+update custom_field_log_entries U_cf 
+set log_field8 = a.user_name 
+from (
+select 
+id, 
+(select first_name || ' ' || last_name from users where staff_id = {staff_id} ) as user_name 
+from custom_field_log_entries 
+where 1=1 
+and field_id = 336
+and source_id = {Student_id} 
+) a 
+where a.id = u_cf.id
