@@ -1,0 +1,151 @@
+do 
+$$
+declare v_cnt integer := 1;
+declare v_var varchar;
+declare v_sql varchar;
+begin
+
+drop table if exists t_json;
+create temp table t_json ( id serial, field_name varchar(255));
+insert into t_json(field_name)
+values ('custom_l4469'::text),('custom_l4790'::text),('custom_l4810'::text),('custom_l4791'::text),('custom_l4811'::text),('custom_l4446'::text),('custom_l4447'::text),('custom_l4499'::text),('custom_l4495'::text),('custom_l4500'::text),('custom_l4452'::text),('custom_l4451'::text),('custom_l4427'::text),('custom_l4443'::text),('custom_l4444'::text),('custom_l4463'::text),('custom_l4437'::text),('custom_l4465'::text),('custom_l4461'::text),('custom_l4434'::text),('custom_l4445'::text),('custom_l4498'::text),('custom_l4501'::text),('custom_l4502'::text),('custom_l4503'::text),('custom_l4504'::text),('custom_l4505'::text),('custom_l4496'::text),('custom_l4497'::text),('custom_l4506'::text),('custom_l4475'::text),('custom_l4464'::text),('custom_l4476'::text),('custom_l4477'::text),('custom_l4468'::text),('custom_l4815'::text),('custom_l4816'::text),('custom_l4820'::text),('custom_l4821'::text),('custom_l5953'::text);
+
+while v_cnt <= (select max(id) from t_json) loop
+
+	v_var := (select field_name from t_json where id = v_cnt);
+	
+	update students s
+	set custom_fields = jsonb_set(coalesce(custom_fields,'{}')::jsonb, concat('{',v_var,'}')::text[], value::varchar::jsonb, true)
+	from (select stu.student_id, 
+case when v_var = 'custom_l4469' then CASE WHEN h.Citizen = cfso0.code then cfso0.id end
+ when v_var = 'custom_l4790' then CASE WHEN Substring(h.MDis,1,2) = cfso.code then cfso.id end
+ when v_var = 'custom_l4810' then CASE WHEN Substring(h.MDis,3,2) = cfso1.code then cfso1.id end
+ when v_var = 'custom_l4791' then CASE WHEN substring(h.SDis,1,2) = cfso2.code then cfso2.id end
+ when v_var = 'custom_l4811' then CASE WHEN substring(h.SDis,3,2) = cfso3.code then cfso3.id end
+ when v_var = 'custom_l4446' then CASE WHEN h.BVSind = cfso4.code then cfso4.id end
+ when v_var = 'custom_l4447' then CASE WHEN h.SevInd = cfso5.code then cfso5.id end
+ /*when v_var = 'custom_l4499' then Case when substring(h.Vocational_Rehabilitation,1,3) = '111' then '[24996, 24997, 24998]'
+	 when substring(h.Vocational_Rehabilitation,1,2) = '11' then '[24996, 24997]'
+	 when substring(h.Vocational_Rehabilitation,2,3) = '11' then '[24997, 24998]'
+	 when substring(h.Vocational_Rehabilitation,1,1) = '1'  and substring(h.Vocational_Rehabilitation,3,1) = '1' then '[24996, 24998]'
+	 when substring(h.Vocational_Rehabilitation,1,1) = '1'  and substring(h.Vocational_Rehabilitation,2,1) = '1' then '[24996, 24997]'
+	 when substring(h.Vocational_Rehabilitation,2,1) = '1'  and substring(h.Vocational_Rehabilitation,3,1) = '1' then '[24997, 24998]'
+	 WHEN substring(h.Vocational_Rehabilitation,1,1) = '1' then '[24996]'
+	 when substring(h.Vocational_Rehabilitation,2,1) = '1' then '[24997]'
+	 when substring(h.Vocational_Rehabilitation,3,1) = '1' then '[24998]' end*/
+ when v_var = 'custom_l4495' then CASE WHEN trim(h.TryOut_Program) = trim(cfso7.code) then cfso7.id end
+ when v_var = 'custom_l4500' then CASE WHEN substring(h.BVS_Eval,1,1) = cfso8.code then cfso8.id
+								when substring(h.BVS_Eval,2,1) = cfso8.code then cfso8.id
+								when substring(h.BVS_Eval,3,1) = cfso8.code then cfso8.id
+							end
+ when v_var = 'custom_l4452' then Case when h.training_program = cfso9.code then cfso9.id end
+ when v_var = 'custom_l4451' then CASE WHEN substring(h.EDUC_SERV,1,1) = cfso10.code then cfso10.id 
+							WHEN substring(h.EDUC_SERV,2,1) = cfso10.code then cfso10.id 
+							end
+ when v_var = 'custom_l4427' then CASE WHEN substring(h.CSEP_SERV,1,1) = cfso11.code then cfso10.id 
+							WHEN substring(h.CSEP_SERV,2,1) = cfso11.code then cfso10.id 
+								end
+ when v_var = 'custom_l4443' then CASE WHEN h.HGACInd = cfso12.code then cfso12.id end
+ when v_var = 'custom_l4444' then CASE WHEN h.SOC = cfso13.code then cfso13.id end
+ when v_var = 'custom_l4463' then CASE WHEN TRIM(h.OVRCn)::VARCHAR = TRIM(cfso14.code)::VARCHAR then cfso14.id end
+ when v_var = 'custom_l4437' then CASE WHEN h.VETERAN = cfso15.code then cfso15.id end
+ when v_var = 'custom_l4465' then CASE WHEN trim(h.OVRDistNbr) = TRIM(cfso16.code) then cfso16.id end
+ when v_var = 'custom_l4461' then CASE WHEN trim(h.OVRDistNbr) = TRIM(cfso16.code) then cfso16.id end
+ when v_var = 'custom_l4434' then CASE WHEN h.ClientStat = cfso17.code then cfso17.id end
+ when v_var = 'custom_l4445' then CASE WHEN h.OVRRefDte = cfso18.code then cfso18.id end
+ when v_var = 'custom_l4498' then Case when trim(h.program_type) = TRIM(cfso19.code) then cfso19.id end
+ when v_var = 'custom_l4501' then CASE WHEN substring(h.EDUC_serv,1,1)::INTEGER = 1 then 25002 
+								WHEN substring(h.EDUC_serv,2,1)::INTEGER = 1 then 25003 end
+ when v_var = 'custom_l4502' then CASE WHEN substring(h.CSEP_serv,1,1)::INTEGER = 1 then 25004 
+								WHEN substring(h.CSEP_serv,2,1)::INTEGER = 1 then 25005 end
+ when v_var = 'custom_l4503' then CASE WHEN substring(h.ASST_TECH,1,1)::INTEGER = 1 then 25006
+								WHEN substring(h.ASST_TECH,2,1)::INTEGER = 1 then 25007
+								WHEN substring(h.ASST_TECH,3,1)::INTEGER = 1 then 25008
+								WHEN substring(h.ASST_TECH,4,1)::INTEGER = 1 then 25009
+								WHEN substring(h.ASST_TECH,5,1)::INTEGER = 1 then 25010 
+								WHEN substring(h.ASST_TECH,6,1)::INTEGER = 1 then 25011 
+								WHEN substring(h.ASST_TECH,7,1)::INTEGER = 1 then 25012 
+								WHEN substring(h.ASST_TECH,8,1)::INTEGER = 1 then 25013 
+								WHEN substring(h.ASST_TECH,9,1)::INTEGER = 1 then 25014 
+								WHEN substring(h.ASST_TECH,10,1)::INTEGER = 1 then 25015 
+											end
+ when v_var = 'custom_l4504' then CASE WHEN substring(h.Health_Service,1,1)::INTEGER = 1 then 25016 
+								WHEN substring(h.Health_Service,2,1)::INTEGER = 1 then 25017 
+								WHEN substring(h.Health_Service,3,1)::INTEGER = 1 then 25018 
+								WHEN substring(h.Health_Service,4,1)::INTEGER = 1 then 25019 
+								WHEN substring(h.Health_Service,5,1)::INTEGER = 1 then 25020 
+								WHEN substring(h.Health_Service,6,1)::INTEGER = 1 then 25021 
+											end							 	 
+  when v_var = 'custom_l4505' then CASE WHEN substring(h.Driv_Eval,1,1)::INTEGER = 1 then 25022
+								WHEN substring(h.Driv_Eval,2,1)::INTEGER = 1 then 25023 end
+ when v_var = 'custom_l4496' then CASE WHEN h.Driv_educ = cfso20.code then cfso20.id end
+ when v_var = 'custom_l4497' then CASE WHEN h.Driv_Vend = cfso21.code then cfso21.id end
+  when v_var = 'custom_l4506' then CASE WHEN substring(h.Driv_Services,1,1)::INTEGER = 1 then 25025
+								WHEN substring(h.Driv_Services,2,1)::INTEGER = 1 then 25026 
+								WHEN substring(h.Driv_Services,3,1)::INTEGER = 1 then 25027
+											end
+ when v_var = 'custom_l4475' then CASE WHEN h.ResReq106 = cfso22.code then cfso22.id end
+ when v_var = 'custom_l4464' then CASE WHEN h.FinStat = cfso23.code then cfso23.id end
+ when v_var = 'custom_l4476' then CASE WHEN h.PHEAA = cfso24.code then cfso24.id end 
+ when v_var = 'custom_l4477' then CASE WHEN h.Pell = cfso25.code then cfso25.id end   
+ when v_var = 'custom_l4468' then CASE WHEN h.county::numeric = cfso26.code::NUMERIC  then cfso26.id end   
+ 	--when v_var = 'custom_l4815' then replace(primary_service,'', '0')::bigint
+ 	when v_var = 'custom_l4816' then replace(secondary_service, '', '0')::bigint
+ 	when v_var = 'custom_l4820' then replace(third_service,'', '0')::bigint
+ 	when v_var = 'custom_l4821' then replace(fourth_service,'', '0')::bigint
+ 	when v_var = 'custom_l5953' then replace(h.Keystone_Username,'', '0')::bigint 
+end as value
+
+from 	HGAC_PRE_REFERRAL_to_Students h
+            join students stu on h.studentnbr::text = stu.custom_53::text
+			left join custom_field_select_options cfso0 on h.Citizen = cfso0.code and cfso0.source_id = 4469
+			left join custom_field_select_options cfso on Substring(h.MDis,1,2) = cfso.code and cfso.source_id = 4790
+			left join custom_field_select_options cfso1 on Substring(h.MDis,3,2) = cfso1.code and cfso1.source_id = 4810
+			left join custom_field_select_options cfso2 on Substring(h.SDis,1,2) = cfso2.code and cfso2.source_id = 4791
+			left join custom_field_select_options cfso3 on Substring(h.SDis,3,2) = cfso3.code and cfso3.source_id = 4811
+			left join custom_field_select_options cfso4 on BVSind = cfso4.code and cfso4.source_id = 4446
+			left join custom_field_select_options cfso5 on SevInd = cfso5.code and cfso5.source_id = 4447
+			--left join custom_field_select_options cfso6 on (substring(h.Vocational_Rehabilitation,1,1) = cfso6.code or 			 	 
+ 			--						substring(h.Vocational_Rehabilitation,2,1) = cfso6.code or  
+ 			--						substring(h.Vocational_Rehabilitation,3,1) = cfso6.code) and 
+  			--						cfso6.source_id = 4499
+			left join custom_field_select_options cfso7 on TRIM(h.TryOut_Program) = TRIM(cfso7.code) and cfso7.source_id = 4495
+			left join custom_field_select_options cfso8 on (substring(h.BVS_Eval,1,1) = cfso8.code or 
+									substring(h.BVS_Eval,2,1) = cfso8.code or 
+									substring(h.BVS_Eval,3,1) = cfso8.code) and
+									cfso8.source_id = 4500
+			left join custom_field_select_options cfso9 on h.training_program = cfso9.code and cfso9.source_id = 4452
+			left join custom_field_select_options cfso10 on (substring(h.EDUC_SERV,1,1) = cfso10.code or 
+									substring(h.EDUC_SERV,2,1) = cfso10.code) and 
+									cfso10.source_id = 4451
+			left join custom_field_select_options cfso11 on (substring(h.CSEP_SERV,1,1) = cfso11.code or 
+									substring(h.CSEP_SERV,2,1) = cfso11.code) and 
+									cfso11.source_id = 4427
+			left join custom_field_select_options cfso12 on h.HGACInd = cfso12.code and cfso12.source_id = 4443
+			left join custom_field_select_options cfso13 on h.SOC = cfso13.code and cfso13.source_id = 4444
+			left join custom_field_select_options cfso14 on TRIM(h.OVRCn)::VARCHAR = TRIM(cfso14.code)::VARCHAR and cfso14.source_id = 4463
+			left join custom_field_select_options cfso15 on h.VETERAN = cfso15.code and cfso15.source_id = 4437
+			left join custom_field_select_options cfso16 on trim(h.OVRDistNbr) = TRIM(cfso16.code) and cfso16.source_id = 4465
+			left join custom_field_select_options cfso17 on h.ClientStat = cfso17.code and cfso17.source_id = 4434
+			left join custom_field_select_options cfso18 on h.OVRRefDte = cfso18.code and cfso18.source_id = 4445
+			left join custom_field_select_options cfso19 on trim(h.program_type) = TRIM(cfso19.code) and cfso19.source_id = 4498
+			left join custom_field_select_options cfso20 on h.Driv_educ = cfso20.code and cfso20.source_id = 4496
+			left join custom_field_select_options cfso21 on h.Driv_Vend = cfso21.code and cfso21.source_id = 4497
+			left join custom_field_select_options cfso22 on h.ResReq106 = cfso22.code and cfso22.source_id = 4475
+			left join custom_field_select_options cfso23 on h.FinStat = cfso23.code and cfso23.source_id = 4464
+			left join custom_field_select_options cfso24 on h.PHEAA = cfso24.code and cfso24.source_id = 4476
+			left join custom_field_select_options cfso25 on h.Pell = cfso25.code and cfso25.source_id = 4477
+			left join custom_field_select_options cfso26 on h.county::numeric = cfso26.code::numeric and cfso26.source_id = 4468
+
+
+) b
+	where 1=1
+	and s.student_id = b.student_id
+	;
+	v_cnt := v_cnt + 1;
+
+end loop;
+
+end;
+$$
+LANGUAGE plpgsql;
