@@ -1,0 +1,835 @@
+DROP TABLE IF EXISTS HGAC_PRE_REFERRAL_to_Students;
+CREATE TABLE HGAC_PRE_REFERRAL_to_Students (
+LName varchar(255) ,FName varchar(255) ,MI varchar(255) ,Suffix varchar(5) ,County  varchar(255) ,Citizen varchar(255) ,Veteran varchar(255) ,Sex varchar(255) ,StudentNbr BIGINT ,OVRDistNbr varchar(255) ,OVRCn varchar(255) ,SSNbr varchar(255),MDis varchar(255) ,SDis varchar(255) ,HGACInd varchar(255) ,SOC varchar(255) ,ClientStat varchar(255) ,City varchar(255) ,ZipCode varchar(255) ,PhoneNbr varchar(255) ,State varchar(255) ,Addre1 varchar(255) ,Addre2 varchar(255) ,BirthDte varchar(255) ,OVRRefDte varchar(255) ,BVSind  varchar(255) ,SevInd varchar(255) , Race varchar(255) ,Vocational_Rehabilitation varchar(255) ,TryOut_Program varchar(255) ,BVS_Eval varchar(255) ,Training_Program varchar(255) ,Program_Type varchar(255) ,EDUC_SERV varchar(255) ,CSEP_SERV varchar(255) ,ASST_TECH varchar(255) ,Health_Service varchar(255) ,Driv_Eval varchar(255) ,Driv_educ varchar(255) ,Driv_Vend varchar(255) ,Driv_Services varchar(255) ,ResReq106 varchar(255) ,FinStat varchar(255) ,PHEAA varchar(255) ,Pell varchar(255) ,MailCity varchar(255) ,MailZipCode varchar(255) , MailState varchar(255) ,MailAddress1 varchar(255) ,MailAddress2 varchar(255) ,EmailADDr varchar(255) , primary_service varchar(255) , secondary_service varchar(255) , third_service varchar(255) , fourth_service varchar(255),Keystone_Username varchar(255), Confidential varchar(1), Protected VARCHAR(1)
+);
+	INSERT INTO HGAC_PRE_REFERRAL_to_Students (Lname, FName  ,MI  ,Suffix  ,County   ,Citizen  ,Veteran  ,Sex  ,StudentNbr  ,OVRDistNbr  ,OVRCn, SSNbr ,MDis  ,SDis  ,HGACInd  ,SOC  ,ClientStat  ,City  ,ZipCode  ,PhoneNbr  ,State  ,Addre1  ,Addre2  ,BirthDte  ,OVRRefDte  ,BVSind   ,SevInd  ,Race  ,Vocational_Rehabilitation  ,TryOut_Program  ,BVS_Eval  ,Training_Program  ,Program_Type  ,EDUC_SERV  ,CSEP_SERV  ,ASST_TECH  ,Health_Service  ,Driv_Eval  ,Driv_educ  ,Driv_Vend  ,Driv_Services  ,ResReq106  ,FinStat  ,PHEAA  ,Pell  ,MailCity  ,MailZipCode  ,MailState  ,MailAddress1  ,MailAddress2  , EmailADDr, Keystone_Username, Confidential, protected)
+    (select 
+        substring(col_1 ,1, 17) as "LName",
+        substring(col_1 ,18, 13) as "FName",
+        substring(col_1 ,31, 1) as "MI",
+        substring(col_1 ,32, 5) as "Suffix",
+        substring(col_1 ,46, 2) as "County",
+        substring(col_1 ,50, 1) as "Citizen",
+        substring(col_1 ,51, 1) as "Veteran",
+        substring(col_1 ,52, 1) as "Sex",
+        substring(col_1 ,53, 10)::BIGINT as "StudentNbr",
+        substring(col_1 ,63, 10) as "OVRDistNbr",
+        substring(col_1 ,73, 9) as "OVRCn",
+        substring(col_1 ,82, 9) as "SSNbr",
+        substring(col_1 ,91, 4) as "MDis",
+        substring(col_1 ,95, 4) as "SDis",
+        substring(col_1 ,99, 1) as "HGACInd",
+        substring(col_1 ,100, 4) as "SOC",
+        substring(col_1 ,104, 2) as "ClientStat",
+        substring(col_1 ,106, 20) as "City",
+        substring(col_1 ,126, 9) as "ZipCode",
+        substring(col_1 ,135, 13) as "PhoneNbr",
+        substring(col_1 ,148, 2) as "State",
+        substring(col_1 ,150, 30) as "Addre1",
+        substring(col_1 ,180, 30) as "Addre2",
+        substring(col_1 ,210, 8) as "BirthDte",
+        substring(col_1 ,218, 8) as "OVRRefDte",
+        substring(col_1 ,226, 1) as "BVSind",
+        substring(col_1 ,227, 1) as "SevInd",
+        substring(col_1 ,228, 6) as "Race",
+        substring(col_1 ,234, 3) as "Vocational_Rehabilitation",
+        substring(col_1 ,237, 10) as "TryOut_Program",
+        substring(col_1 ,247, 3) as "BVS_Eval",
+        substring(col_1 ,250, 1) as "Training_Program",
+        substring(col_1 ,251, 10) as "Program_Type",
+        substring(col_1 ,261, 2) as "EDUC_SERV",
+        substring(col_1 ,263, 2) as "CSEP_SERV",
+        substring(col_1 ,265, 10) as "ASST_TECH",
+        substring(col_1 ,275, 6) as "Health_Service",
+        substring(col_1 ,281, 2) as "Driv_Eval",
+        substring(col_1 ,283, 1) as "Driv_educ",
+        substring(col_1 ,284, 1) as "Driv_Vend",
+        substring(col_1 ,285, 3) as "Driv_Services",
+        substring(col_1 ,288, 1) as "ResReq106",
+        substring(col_1 ,289, 1) as "FinStat",
+        substring(col_1 ,290, 1) as "PHEAA",
+        substring(col_1 ,291, 1) as "Pell",
+        substring(col_1 ,292, 20) as "MailCity",
+        substring(col_1 ,312, 9) as "MailZipCode",
+        substring(col_1 ,321, 2) as "MailState",
+        substring(col_1 ,323, 30) as "MailAddress1",
+        substring(col_1 ,353, 30) as "MailAddress2",
+        substring(col_1 ,383, 50) as "EmailADDr",
+		substring(col_1,447, 1 ) as "Keystone_Username",
+		substring(col_1,448, 1) as "Confidential",
+		substring(col_1,449, 1) as "Protected"
+    from hgac_pre_referral_fw_temp
+	--where not exists(select '' from students where custom_53::BIGINT = substring(col_1 ,53, 10):: BIGINT )
+)
+;
+create index ix_active_students_student_id on HGAC_PRE_REFERRAL_to_Students(studentnbr);
+
+
+WITH Voc_Rehab AS MATERIALIZED(
+SELECT 
+h.studentnbr, 
+Vocational_Rehabilitation,
+ CASE WHEN SUBSTRING(h.Vocational_Rehabilitation,1,1) = '1' THEN '25571' 
+	WHEN SUBSTRING(h.Vocational_Rehabilitation,1,1) = '0' AND SUBSTRING(h.Vocational_Rehabilitation,3,1) = '1' THEN '25572' END AS PRIMARY 
+,	CASE WHEN SUBSTRING(h.Vocational_Rehabilitation,1,1) = '1' AND SUBSTRING(h.Vocational_Rehabilitation,3,1) = '1' THEN '25631' END AS secondary 
+FROM hgac_pre_referral_to_students h
+) --select * from voc_rehab;
+, BVS AS MATERIALIZED(
+SELECT 
+h.studentnbr, 
+ h.bvs_eval ,
+ CASE WHEN v.primary IS NULL AND SUBSTRING(h.BVS_Eval,1,1)::INTEGER != 0 THEN '25577'  
+      WHEN v.primary IS NULL AND SUBSTRING(h.BVS_Eval,2,1)::INTEGER != 0 THEN '25578'	 
+      WHEN v.primary IS NULL AND SUBSTRING(h.BVS_Eval,3,1)::INTEGER != 0 THEN '25576'
+	ELSE v.primary	END AS PRIMARY ,
+v.secondary AS secondary
+FROM hgac_pre_referral_to_students h
+LEFT JOIN Voc_Rehab v ON h.studentnbr = v.studentnbr 
+)  --select * from bvs;
+
+, CSEP AS MATERIALIZED(
+SELECT 
+h.studentnbr, 
+h.CSEP_serv, 
+ CASE WHEN b.primary != 25571::TEXT AND SUBSTRING(h.CSEP_serv,1,1)::INTEGER != 0 THEN '25581' 
+      WHEN b.primary IS NULL AND b.primary IS NULL AND SUBSTRING(h.CSEP_serv,2,1)::INTEGER != 0 THEN '25583'
+	ELSE b.primary END AS PRIMARY
+, b.secondary
+, '' AS third 
+, '' AS fourth
+FROM hgac_pre_referral_to_students h 
+JOIN bvs b ON h.studentnbr = b.studentnbr
+
+) --select * from csep;
+, educ_servs AS MATERIALIZED(
+SELECT 
+h.studentnbr, 
+h.educ_serv ,
+CASE WHEN COALESCE(c.primary,'') NOT IN ('25571','25572','25573','25574','25575','25576','25577','25578','25579','25995') AND SUBSTRING(h.EDUC_SERV,1,1)::INTEGER = 1 THEN '25559' ELSE c.primary END AS PRIMARY, 
+CASE WHEN COALESCE(c.secondary,'') NOT IN ('25571','25572','25573','25574','25575','25576','25577','25578','25579','25995') AND SUBSTRING(h.EDUC_SERV,1,1)::INTEGER = 1 THEN '25618' ELSE c.secondary END AS secondary ,
+CASE WHEN COALESCE(c.third,'') NOT IN ('25571','25572','25573','25574','25575','25576','25577','25578','25579','25995') AND SUBSTRING(h.EDUC_SERV,1,1)::INTEGER = 1 THEN '25706' ELSE c.third END AS third ,
+CASE WHEN COALESCE(c.fourth,'') NOT IN ('25571','25572','25573','25574','25575','25576','25577','25578','25579','25995') AND SUBSTRING(h.EDUC_SERV,1,1)::INTEGER = 1 THEN '25765' ELSE c.fourth END AS fourth 
+FROM hgac_pre_referral_to_students h 
+JOIN csep c ON h.studentnbr = c.studentnbr 
+) --select * from educ_servs;
+
+, cln_data1 AS MATERIALIZED(
+SELECT 
+		h.studentnbr 
+	,	CAST(COALESCE(e.primary, '-1') AS text) AS PRIMARY
+	,	CAST(CASE WHEN e.secondary = e.primary THEN e.secondary = NULL END AS text) AS secondary 
+	,	CAST(CASE WHEN e.third = e.secondary THEN e.third = NULL END AS text) AS third 
+	,	CAST(CASE WHEN e.fourth = e.third THEN e.fourth = NULL END AS text) AS fourth 
+FROM hgac_pre_referral_to_students h 
+JOIN educ_servs e ON h.studentnbr = e.studentnbr 
+) --select * from cln_data1;
+
+, prg_srv AS MATERIALIZED(
+SELECT 
+h.studentnbr,
+h.program_type ,
+CASE 	WHEN TRIM(h.program_type)::TEXT = '1'::TEXT OR TRIM(h.program_type)::TEXT = '2'::TEXT AND h.training_program::TEXT = '1'::TEXT AND COALESCE(s.primary, '-1') = '' THEN 25940::TEXT
+	WHEN TRIM(h.program_type)::TEXT = '3'::text OR TRIM(h.program_type)::TEXT = '19'::text AND h.training_program::TEXT = '1'::TEXT AND COALESCE(s.primary, '-1') = '' THEN 25548::TEXT 
+	WHEN TRIM(h.program_type)::TEXT = '4'::text AND h.training_program::TEXT = '1'::TEXT AND COALESCE(s.primary, '-1') = '' THEN 25550::TEXT 
+	WHEN TRIM(h.program_type)::TEXT = '5'::text OR TRIM(h.program_type)::TEXT = '9'::text AND h.training_program::TEXT = '1'::TEXT AND COALESCE(s.primary, '-1') = '' THEN 25552 ::TEXT
+	WHEN TRIM(h.program_type)::TEXT = '6'::text AND h.training_program::TEXT = '1' AND COALESCE(s.primary, '-1') = '' THEN 25554 ::TEXT
+	WHEN TRIM(h.program_type)::TEXT = '7'::text AND h.training_program::TEXT = '1' AND COALESCE(s.primary, '-1') = '' THEN 25558::TEXT
+        WHEN TRIM(h.program_type)::TEXT = '8'::text AND h.training_program::TEXT = '1' AND COALESCE(s.primary, '-1') = '' THEN 25551::TEXT
+	WHEN TRIM(h.program_type)::TEXT = '10'::text AND h.training_program::TEXT = '1' AND COALESCE(s.primary, '-1') = '' THEN 25555::TEXT
+	WHEN (TRIM(h.program_type)::TEXT = '11'::text OR TRIM(h.program_type)::TEXT = '12'::text AND h.training_program::TEXT = '1') AND COALESCE(s.primary, '-1') = '' THEN 25556::TEXT
+        WHEN TRIM(h.program_type)::TEXT = '13'::text AND h.training_program::TEXT = '1' AND COALESCE(s.primary, '-1') = '' THEN 26006::TEXT
+        WHEN TRIM(h.program_type)::TEXT = '14'::text AND h.training_program::TEXT = '1' AND COALESCE(s.primary, '-1') = '' THEN 25549::TEXT
+	WHEN TRIM(h.program_type)::TEXT = '15'::text AND h.training_program::TEXT = '1' AND COALESCE(s.primary, '-1') = '' THEN 25553::TEXT
+	WHEN TRIM(h.program_type)::TEXT = '16'::text AND h.training_program::TEXT = '1' AND COALESCE(s.primary, '-1') = '' THEN 25999::TEXT
+	WHEN TRIM(h.program_type)::TEXT = '17'::text OR TRIM(h.program_type)::TEXT = '21'::text AND h.training_program::TEXT = '1' AND COALESCE(s.primary, '-1') = '' THEN 25547::TEXT
+	WHEN TRIM(h.program_type)::TEXT = '18'::text AND h.training_program::TEXT = '1' AND COALESCE(s.primary, '-1') = '' THEN 25567::TEXT
+	WHEN TRIM(h.program_type)::TEXT = '20'::text AND h.training_program::TEXT = '1' AND COALESCE(s.primary, '-1') = '' THEN 25568::TEXT
+	WHEN TRIM(h.program_type)::TEXT = '22'::text AND h.training_program::TEXT = '1' AND COALESCE(s.primary, '-1') = '' THEN 25997::TEXT
+        WHEN TRIM(h.program_type)::TEXT = '23'::text AND h.training_program::TEXT = '1' AND COALESCE(s.primary, '-1') = '' THEN 25979::TEXT
+				  ELSE s.primary END AS PRIMARY ,
+
+CASE 	WHEN TRIM(h.program_type)::TEXT = '1'::TEXT OR TRIM(h.program_type)::TEXT = '2'::TEXT AND h.training_program::TEXT = '1'::TEXT AND COALESCE(s.secondary, 'No') = 'No' THEN '25940'
+	WHEN TRIM(h.program_type)::TEXT = '3'::text OR TRIM(h.program_type)::TEXT = '19'::text AND h.training_program::TEXT = '1'::TEXT AND COALESCE(s.secondary, 'No') = 'No' THEN '25607' 
+	WHEN TRIM(h.program_type)::TEXT = '4'::text AND h.training_program::TEXT = '1'::TEXT AND COALESCE(s.secondary, 'No') = 'No' THEN '25609'
+	WHEN TRIM(h.program_type)::TEXT = '5'::text OR TRIM(h.program_type)::TEXT = '9'::text AND h.training_program::TEXT = '1'::TEXT AND COALESCE(s.secondary, 'No') = 'No' THEN '25713'
+	WHEN TRIM(h.program_type)::TEXT = '6'::text AND h.training_program::TEXT = '1' AND COALESCE(s.secondary, 'No') = 'No' THEN '25613' 
+	WHEN TRIM(h.program_type)::TEXT = '7'::text AND h.training_program::TEXT = '1' AND COALESCE(s.secondary, 'No') = 'No' THEN '25617'
+        WHEN TRIM(h.program_type)::TEXT = '8'::text AND h.training_program::TEXT = '1' AND COALESCE(s.secondary, 'No') = 'No' THEN '25610'
+	WHEN TRIM(h.program_type)::TEXT = '10'::text AND h.training_program::TEXT = '1' AND COALESCE(s.secondary, 'No') = 'No' THEN '25614'
+	WHEN (TRIM(h.program_type)::TEXT = '11'::text OR TRIM(h.program_type)::TEXT = '12'::text AND h.training_program::TEXT = '1') AND COALESCE(s.secondary, 'No') = 'No' THEN '25615'
+        WHEN TRIM(h.program_type)::TEXT = '13'::text AND h.training_program::TEXT = '1' AND COALESCE(s.secondary, 'No') = 'No' THEN '26134'
+        WHEN TRIM(h.program_type)::TEXT = '14'::text AND h.training_program::TEXT = '1' AND COALESCE(s.secondary, 'No') = 'No' THEN '25608'
+	WHEN TRIM(h.program_type)::TEXT = '15'::text AND h.training_program::TEXT = '1' AND COALESCE(s.secondary, 'No') = 'No' THEN '25612'
+	WHEN TRIM(h.program_type)::TEXT = '16'::text AND h.training_program::TEXT = '1' AND COALESCE(s.secondary, 'No') = 'No' THEN '26127'
+	WHEN TRIM(h.program_type)::TEXT = '17'::text OR TRIM(h.program_type)::TEXT = '21'::text AND h.training_program::TEXT = '1' AND COALESCE(s.secondary, 'No') = 'No' THEN '25606'
+	WHEN TRIM(h.program_type)::TEXT = '18'::text AND h.training_program::TEXT = '1' AND COALESCE(s.secondary, 'No') = 'No' THEN '25626'
+	WHEN TRIM(h.program_type)::TEXT = '20'::text AND h.training_program::TEXT = '1' AND COALESCE(s.secondary, 'No') = 'No' THEN '25627'
+	WHEN TRIM(h.program_type)::TEXT = '22'::text AND h.training_program::TEXT = '1' AND COALESCE(s.secondary, 'No') = 'No' THEN '26125'
+        WHEN TRIM(h.program_type)::TEXT = '23'::text AND h.training_program::TEXT = '1' AND COALESCE(s.secondary, 'No') = 'No' THEN '26107'
+				  ELSE s.secondary END AS secondary,
+
+CASE 	WHEN TRIM(h.program_type)::TEXT = '1'::TEXT OR TRIM(h.program_type)::TEXT = '2'::TEXT AND h.training_program::TEXT = '1'::TEXT AND COALESCE(s.third, 'No') = 'No' THEN '25940'
+	WHEN TRIM(h.program_type)::TEXT = '3'::text OR TRIM(h.program_type)::TEXT = '19'::text AND h.training_program::TEXT = '1'::TEXT AND COALESCE(s.third, 'No') = 'No' THEN '25607' 
+	WHEN TRIM(h.program_type)::TEXT = '4'::text AND h.training_program::TEXT = '1'::TEXT AND COALESCE(s.third, 'No') = 'No' THEN '25609'
+	WHEN TRIM(h.program_type)::TEXT = '5'::text OR TRIM(h.program_type)::TEXT = '9'::text AND h.training_program::TEXT = '1'::TEXT AND COALESCE(s.third, 'No') = 'No' THEN '25772'
+	WHEN TRIM(h.program_type)::TEXT = '6'::text AND h.training_program::TEXT = '1' AND COALESCE(s.third, 'No') = 'No' THEN '25711' 
+	WHEN TRIM(h.program_type)::TEXT = '7'::text AND h.training_program::TEXT = '1' AND COALESCE(s.third, 'No') = 'No' THEN '25707'
+        WHEN TRIM(h.program_type)::TEXT = '8'::text AND h.training_program::TEXT = '1' AND COALESCE(s.third, 'No') = 'No' THEN '25714'
+	WHEN TRIM(h.program_type)::TEXT = '10'::text AND h.training_program::TEXT = '1' AND COALESCE(s.third, 'No') = 'No' THEN '25710'
+	WHEN (TRIM(h.program_type)::TEXT = '11'::text OR TRIM(h.program_type)::TEXT = '12'::text AND h.training_program::TEXT = '1') AND COALESCE(s.third, 'No') = 'No' THEN '25709'
+        WHEN TRIM(h.program_type)::TEXT = '13'::text AND h.training_program::TEXT = '1' AND COALESCE(s.third, 'No') = 'No' THEN '26262'
+        WHEN TRIM(h.program_type)::TEXT = '14'::text AND h.training_program::TEXT = '1' AND COALESCE(s.third, 'No') = 'No' THEN '25716'
+	WHEN TRIM(h.program_type)::TEXT = '15'::text AND h.training_program::TEXT = '1' AND COALESCE(s.third, 'No') = 'No' THEN '25712'
+	WHEN TRIM(h.program_type)::TEXT = '16'::text AND h.training_program::TEXT = '1' AND COALESCE(s.third, 'No') = 'No' THEN '26255'
+	WHEN TRIM(h.program_type)::TEXT = '17'::text OR TRIM(h.program_type)::TEXT = '21'::text AND h.training_program::TEXT = '1' AND COALESCE(s.third, 'No') = 'No' THEN '25718'
+	WHEN TRIM(h.program_type)::TEXT = '18'::text AND h.training_program::TEXT = '1' AND COALESCE(s.third, 'No') = 'No' THEN '25698'
+	WHEN TRIM(h.program_type)::TEXT = '20'::text AND h.training_program::TEXT = '1' AND COALESCE(s.third, 'No') = 'No' THEN '25697'
+	WHEN TRIM(h.program_type)::TEXT = '22'::text AND h.training_program::TEXT = '1' AND COALESCE(s.third, 'No') = 'No' THEN '26253'
+        WHEN TRIM(h.program_type)::TEXT = '23'::text AND h.training_program::TEXT = '1' AND COALESCE(s.third, 'No') = 'No' THEN '26235'
+				  ELSE s.third END AS third,
+
+CASE 	WHEN TRIM(h.program_type)::TEXT = '1'::TEXT OR TRIM(h.program_type)::TEXT = '2'::TEXT AND h.training_program::TEXT = '1'::TEXT AND COALESCE(s.fourth, 'No') = 'No' THEN '25940'
+	WHEN TRIM(h.program_type)::TEXT = '3'::text OR TRIM(h.program_type)::TEXT = '19'::text AND h.training_program::TEXT = '1'::TEXT AND COALESCE(s.fourth, 'No') = 'No' THEN '25607' 
+	WHEN TRIM(h.program_type)::TEXT = '4'::text AND h.training_program::TEXT = '1'::TEXT AND COALESCE(s.fourth, 'No') = 'No' THEN '25609'
+	WHEN TRIM(h.program_type)::TEXT = '5'::text OR TRIM(h.program_type)::TEXT = '9'::text AND h.training_program::TEXT = '1'::TEXT AND COALESCE(s.fourth, 'No') = 'No' THEN '25611'
+	WHEN TRIM(h.program_type)::TEXT = '6'::text AND h.training_program::TEXT = '1' AND COALESCE(s.fourth, 'No') = 'No' THEN '25770' 
+	WHEN TRIM(h.program_type)::TEXT = '7'::text AND h.training_program::TEXT = '1' AND COALESCE(s.fourth, 'No') = 'No' THEN '25766'
+        WHEN TRIM(h.program_type)::TEXT = '8'::text AND h.training_program::TEXT = '1' AND COALESCE(s.fourth, 'No') = 'No' THEN '25773'
+	WHEN TRIM(h.program_type)::TEXT = '10'::text AND h.training_program::TEXT = '1' AND COALESCE(s.fourth, 'No') = 'No' THEN '25769'
+	WHEN (TRIM(h.program_type)::TEXT = '11'::text OR TRIM(h.program_type)::TEXT = '12'::text AND h.training_program::TEXT = '1') AND COALESCE(s.fourth, 'No') = 'No' THEN '25768'
+        WHEN TRIM(h.program_type)::TEXT = '13'::text AND h.training_program::TEXT = '1' AND COALESCE(s.fourth, 'No') = 'No' THEN '26390'
+        WHEN TRIM(h.program_type)::TEXT = '14'::text AND h.training_program::TEXT = '1' AND COALESCE(s.fourth, 'No') = 'No' THEN '25775'
+	WHEN TRIM(h.program_type)::TEXT = '15'::text AND h.training_program::TEXT = '1' AND COALESCE(s.fourth, 'No') = 'No' THEN '25771'
+	WHEN TRIM(h.program_type)::TEXT = '16'::text AND h.training_program::TEXT = '1' AND COALESCE(s.fourth, 'No') = 'No' THEN '26383'
+	WHEN TRIM(h.program_type)::TEXT = '17'::text OR TRIM(h.program_type)::TEXT = '21'::text AND h.training_program::TEXT = '1' AND COALESCE(s.fourth, 'No') = 'No' THEN '25777'
+	WHEN TRIM(h.program_type)::TEXT = '18'::text AND h.training_program::TEXT = '1' AND COALESCE(s.fourth, 'No') = 'No' THEN '25757'
+	WHEN TRIM(h.program_type)::TEXT = '20'::text AND h.training_program::TEXT = '1' AND COALESCE(s.fourth, 'No') = 'No' THEN '25756'
+	WHEN TRIM(h.program_type)::TEXT = '22'::text AND h.training_program::TEXT = '1' AND COALESCE(s.fourth, 'No') = 'No' THEN '26381'
+        WHEN TRIM(h.program_type)::TEXT = '23'::text AND h.training_program::TEXT = '1' AND COALESCE(s.fourth, 'No') = 'No' THEN '26363'
+				  ELSE s.fourth END AS fourth
+FROM hgac_pre_referral_to_students h 
+JOIN cln_data1 s ON h.studentnbr = s.studentnbr
+) -- select * from prg_srv;
+ 
+, cln_data2 AS MATERIALIZED(
+SELECT 
+		h.studentnbr 
+	,	CAST(COALESCE(e.primary, '-1') AS text) AS PRIMARY
+	,	CAST(CASE WHEN cfso1.code != cfso.code THEN e.secondary  END AS text) AS secondary
+	,	CAST(CASE WHEN cfso2.code != cfso1.code THEN e.third END AS text) AS third 
+	,	CAST(CASE WHEN cfso3.code != cfso2.code then e.fourth END AS text) AS fourth 
+FROM hgac_pre_referral_to_students h 
+JOIN prg_srv e ON h.studentnbr = e.studentnbr 
+left join custom_field_select_options cfso on e.primary = cfso.id::TEXT
+left join custom_field_select_options cfso1 on e.secondary = cfso1.id::TEXT 
+left join custom_field_select_options cfso2 on e.third = cfso2.id::TEXT 
+left join custom_field_select_options cfso3 on e.fourth = cfso3.id::TEXT 
+) --select * from cln_data2;
+
+, CART AS MATERIALIZED(
+SELECT
+		h.studentnbr 
+	,	h.ASST_TECH
+	,	CASE WHEN SUM(h.ASST_TECH::BIGINT)::TEXT > 1::TEXT  THEN 25541::TEXT else c.primary END AS PRIMARY 
+	,	CASE WHEN SUM(h.ASST_TECH::BIGINT)::TEXT > 1::TEXT  THEN 25541::TEXT else c.secondary END  AS secondary 
+	,	CASE WHEN SUM(h.ASST_TECH::BIGINT)::TEXT > 1::TEXT THEN 25541::TEXT else c.third END AS third 
+	,	CASE WHEN SUM(h.ASST_TECH::BIGINT)::TEXT > 1::TEXT THEN 25541::TEXT else c.fourth END AS fourth 
+FROM hgac_pre_referral_to_students h 
+JOIN cln_data2 c ON h.studentnbr = c.studentnbr 
+GROUP BY h.studentnbr,h.ASST_TECH, c.primary,c.secondary,c.third,c.fourth
+) --select * from cart;
+, cln_data3 AS MATERIALIZED(
+SELECT 
+		h.studentnbr 
+	,	CAST(COALESCE(e.primary, '-1') AS text) AS PRIMARY
+	,	CAST(CASE WHEN cfso1.code != cfso.code THEN e.secondary  END AS text) AS secondary
+	,	CAST(CASE WHEN cfso2.code != cfso1.code THEN e.third END AS text) AS third 
+	,	CAST(CASE WHEN cfso3.code != cfso2.code then e.fourth END AS text) AS fourth 
+FROM hgac_pre_referral_to_students h 
+left JOIN cart e ON h.studentnbr = e.studentnbr 
+left join custom_field_select_options cfso on e.primary = cfso.id::TEXT
+left join custom_field_select_options cfso1 on e.secondary = cfso1.id::TEXT 
+left join custom_field_select_options cfso2 on e.third = cfso2.id::TEXT 
+left join custom_field_select_options cfso3 on e.fourth = cfso3.id::TEXT 
+) --select * from cln_data3;
+
+, dvr_eval AS MATERIALIZED(
+SELECT 
+		h.studentnbr 
+	,	h.driv_eval
+	,	CASE 	WHEN SUBSTRING(h.Driv_Eval,1,1)::TEXT = 1::TEXT AND COALESCE(c.primary, 'No') = 'No' THEN 25562::TEXT 
+		    	WHEN SUBSTRING(h.Driv_Eval,2,1)::TEXT = 1::TEXT AND COALESCE(c.primary, 'No') = 'No' THEN 25561::TEXT ELSE c.primary END AS PRIMARY 
+	,	CASE 	WHEN SUBSTRING(h.Driv_Eval,1,1)::TEXT = 1::TEXT AND COALESCE(c.secondary, 'No') = 'No' THEN 25621::TEXT 
+		    	WHEN SUBSTRING(h.Driv_Eval,2,1)::TEXT = 1::TEXT AND COALESCE(c.secondary, 'No') = 'No' THEN 25620::TEXT ELSE c.secondary END AS secondary 
+	,	CASE 	WHEN SUBSTRING(h.Driv_Eval,1,1)::TEXT = 1::TEXT AND COALESCE(c.third, 'No') = 'No' THEN 25703::TEXT 
+		    	WHEN SUBSTRING(h.Driv_Eval,2,1)::TEXT = 1::TEXT AND COALESCE(c.third, 'No') = 'No' THEN 25704::TEXT ELSE c.third END AS third 
+	,	CASE 	WHEN SUBSTRING(h.Driv_Eval,1,1)::TEXT = 1::TEXT AND COALESCE(c.fourth, 'No') = 'No' THEN 25762::TEXT 
+		    	WHEN SUBSTRING(h.Driv_Eval,2,1)::TEXT = 1::TEXT AND COALESCE(c.fourth, 'No') = 'No' THEN 25763::TEXT ELSE c.fourth END AS fourth 
+FROM hgac_pre_referral_to_students h 
+JOIN cln_data3 c ON h.studentnbr = c.studentnbr 
+
+) --select * from dvr_eval;
+
+, cln_data4 AS MATERIALIZED(
+SELECT 
+		h.studentnbr 
+	,	CAST(COALESCE(e.primary, '-1') AS text) AS PRIMARY
+	,	CAST(CASE WHEN cfso1.code != cfso.code THEN e.secondary  END AS text) AS secondary
+	,	CAST(CASE WHEN cfso2.code != cfso1.code THEN e.third END AS text) AS third 
+	,	CAST(CASE WHEN cfso3.code != cfso2.code then e.fourth END AS text) AS fourth 
+FROM hgac_pre_referral_to_students h 
+JOIN dvr_eval e ON h.studentnbr = e.studentnbr 
+left join custom_field_select_options cfso on e.primary = cfso.id::TEXT
+left join custom_field_select_options cfso1 on e.secondary = cfso1.id::TEXT 
+left join custom_field_select_options cfso2 on e.third = cfso2.id::TEXT 
+left join custom_field_select_options cfso3 on e.fourth = cfso3.id::TEXT 
+) --select * from cln_data4;
+
+, dvr_srvs AS MATERIALIZED(
+SELECT 
+		h.studentnbr 
+	,	h.driv_services as service 
+	,	CASE 	WHEN SUBSTRING(h.Driv_Services,1,1)::text = 1::text AND COALESCE(d.primary, 'No') = 'No' THEN 25563::text
+			WHEN SUBSTRING(h.Driv_Services,2,1)::text = 1::text AND COALESCE(d.primary, 'No') = 'No' THEN 25564::text
+			WHEN SUBSTRING(h.Driv_Services,3,1)::text = 1::text AND COALESCE(d.primary, 'No') = 'No' THEN 25565::text
+			ELSE d.primary END AS PRIMARY 
+	,	CASE 	WHEN SUBSTRING(h.Driv_Services,1,1)::text = 1::text AND COALESCE(d.secondary, 'No') = 'No' THEN 25622::text
+			WHEN SUBSTRING(h.Driv_Services,2,1)::text = 1::text AND COALESCE(d.secondary, 'No') = 'No' THEN 25623::text
+			WHEN SUBSTRING(h.Driv_Services,3,1)::text = 1::text AND COALESCE(d.secondary, 'No') = 'No' THEN 25624::text
+			ELSE d.secondary END AS secondary 
+	,	CASE 	WHEN SUBSTRING(h.Driv_Services,1,1)::text = 1::text AND COALESCE(d.third, 'No') = 'No' THEN 25702::text
+			WHEN SUBSTRING(h.Driv_Services,2,1)::text = 1::text AND COALESCE(d.third, 'No') = 'No' THEN 25701::text
+			WHEN SUBSTRING(h.Driv_Services,3,1)::text = 1::text AND COALESCE(d.third, 'No') = 'No' THEN 25700::text
+			ELSE d.third END AS third 
+	,	CASE 	WHEN SUBSTRING(h.Driv_Services,1,1)::text = 1::text AND COALESCE(d.fourth, 'No') = 'No' THEN 25761::text
+			WHEN SUBSTRING(h.Driv_Services,2,1)::text = 1::text AND COALESCE(d.fourth, 'No') = 'No' THEN 25760::text
+			WHEN SUBSTRING(h.Driv_Services,3,1)::text = 1::text AND COALESCE(d.fourth, 'No') = 'No' THEN 25759::text
+			ELSE d.fourth END AS fourth 
+FROM hgac_pre_referral_to_students h 
+JOIN cln_data4 d ON h.studentnbr = d.studentnbr 
+) --select * from dvr_srvs;
+
+, cln_data5 AS MATERIALIZED(
+SELECT 
+		h.studentnbr 
+	,	CAST(COALESCE(e.primary, '-1') AS text) AS PRIMARY
+	,	CAST(CASE WHEN cfso1.code != cfso.code THEN e.secondary  END AS text) AS secondary
+	,	CAST(CASE WHEN cfso2.code != cfso1.code THEN e.third END AS text) AS third 
+	,	CAST(CASE WHEN cfso3.code != cfso2.code then e.fourth END AS text) AS fourth 
+FROM hgac_pre_referral_to_students h 
+JOIN dvr_srvs e ON h.studentnbr = e.studentnbr 
+left join custom_field_select_options cfso on e.primary = cfso.id::TEXT
+left join custom_field_select_options cfso1 on e.secondary = cfso1.id::TEXT 
+left join custom_field_select_options cfso2 on e.third = cfso2.id::TEXT 
+left join custom_field_select_options cfso3 on e.fourth = cfso3.id::TEXT 
+) 
+
+, hlth_srvs AS MATERIALIZED( 
+SELECT 
+		h.studentnbr 
+	,	CASE 	WHEN SUBSTRING(h.Health_Service,1,1)::TEXT = 1::TEXT AND COALESCE(d.primary, 'No') = 'No' THEN 25536::text  
+			WHEN SUBSTRING(h.Health_Service,2,1)::TEXT = 1::TEXT AND COALESCE(d.primary, 'No') = 'No' THEN 25537::text  
+			WHEN SUBSTRING(h.Health_Service,6,1)::TEXT = 1::TEXT AND COALESCE(d.primary, 'No') = 'No' THEN 25540::text
+			ELSE d.primary END AS PRIMARY 
+	,	CASE 	WHEN SUBSTRING(h.Health_Service,1,1)::TEXT = 1::TEXT AND COALESCE(d.secondary, 'No') = 'No' THEN 25595::text  
+			WHEN SUBSTRING(h.Health_Service,2,1)::TEXT = 1::TEXT AND COALESCE(d.secondary, 'No') = 'No' THEN 25596::text  
+			WHEN SUBSTRING(h.Health_Service,6,1)::TEXT = 1::TEXT AND COALESCE(d.secondary, 'No') = 'No' THEN 25599::text
+			ELSE d.secondary END AS secondary 
+	,	CASE 	WHEN SUBSTRING(h.Health_Service,1,1)::TEXT = 1::TEXT AND COALESCE(d.third, 'No') = 'No' THEN 25729::text  
+			WHEN SUBSTRING(h.Health_Service,2,1)::TEXT = 1::TEXT AND COALESCE(d.third, 'No') = 'No' THEN 25728::text  
+			WHEN SUBSTRING(h.Health_Service,6,1)::TEXT = 1::TEXT AND COALESCE(d.third, 'No') = 'No' THEN 25725::text
+			ELSE d.third END AS third 
+	,	CASE 	WHEN SUBSTRING(h.Health_Service,1,1)::TEXT = 1::TEXT AND COALESCE(d.fourth, 'No') = 'No' THEN 25788::text  
+			WHEN SUBSTRING(h.Health_Service,2,1)::TEXT = 1::TEXT AND COALESCE(d.fourth, 'No') = 'No' THEN 25787::text  
+			WHEN SUBSTRING(h.Health_Service,6,1)::TEXT = 1::TEXT AND COALESCE(d.fourth, 'No') = 'No' THEN 25784::text
+			ELSE d.fourth END AS fourth 
+FROM hgac_pre_referral_to_students h 
+JOIN dvr_srvs d ON h.studentnbr = d.studentnbr 
+)
+,
+data AS MATERIALIZED(
+SELECT 
+		h.studentnbr 
+	,	CAST(COALESCE(e.primary, '0') AS text) AS PRIMARY
+	,	CAST(CASE WHEN cfso1.code != cfso.code THEN e.secondary  END AS text) AS secondary
+	,	CAST(CASE WHEN cfso2.code != cfso1.code THEN e.third END AS text) AS third 
+	,	CAST(CASE WHEN cfso3.code != cfso2.code then e.fourth END AS text) AS fourth 
+FROM hgac_pre_referral_to_students h 
+JOIN hlth_srvs e ON h.studentnbr = e.studentnbr 
+left join custom_field_select_options cfso on e.primary = cfso.id::TEXT
+left join custom_field_select_options cfso1 on e.secondary = cfso1.id::TEXT 
+left join custom_field_select_options cfso2 on e.third = cfso2.id::TEXT 
+left join custom_field_select_options cfso3 on e.fourth = cfso3.id::TEXT 
+) --select * from data;
+,
+ins_data AS MATERIALIZED(
+UPDATE hgac_pre_referral_to_students h 
+SET     primary_service = coalesce(regexp_replace(d.primary, '[^0-9]+', '', 'g'), '0')::varchar,
+	secondary_service = coalesce(d.secondary, '0') ,
+	third_service = coalesce(d.third, '0') ,	
+	fourth_service = coalesce(d.fourth,'0')
+FROM data d 
+WHERE d.studentnbr = h.studentnbr 
+returning * 
+) SELECT * FROM ins_data;
+;
+
+insert into students( student_id, custom_53)
+(
+select 
+	NEXTVAL('STUDENTS_SEQ'),
+	h.studentnbr
+from HGAC_PRE_REFERRAL_to_Students h 
+where not exists (select '' from students where h.studentnbr::text = custom_53::text)
+)
+
+
+;
+
+With SJA AS MATERIALIZED(
+INSERT INTO students_join_address ( --CREATES SJA ID AND ADDRESS ID 
+		id, student_id, address_id, mailing,
+		residence, imported
+	)(
+		SELECT
+			nextval('students_join_address_seq') AS id,
+			S.STUDENT_ID :: numeric,
+			nextval('address_seq') AS address_id,
+			'Y',
+			'Y',
+			'$'
+		FROM
+			STUDENTS S 
+                JOIN HGAC_PRE_REFERRAL_to_Students NS ON S.custom_53::text = NS.StudentNbr::text
+                WHERE not exists (select * from students_join_address where student_id = s.student_id and imported = '$' and mailing =  'Y')
+	) RETURNING *
+
+),
+Addr_INS AS MATERIALIZED(  --INSERTS INFORMATION INTO ADDRESS TABLE FROM CREATED TEMP TABLE 
+	INSERT INTO address (
+		address_id, zipcode, city, state, mail_city,
+		mail_state, mail_zipcode, address,
+		mail_address, address2, mail_address2,
+		imported, phone
+	) (
+		SELECT distinct on (si.address_id)
+			si.address_id,
+			UPPER(ns.MailZipCode),
+			UPPER(ns.MailCity),
+			UPPER(ns.MailState),
+			UPPER(ns.MailCity),
+			UPPER(ns.MailState),
+			ns.MailZipCode,
+			UPPER(ns.MailAddress1),
+			UPPER(ns.MailAddress1),
+			UPPER(ns.MailAddress2),
+			UPPER(ns.MailAddress2),
+			'$',
+			PhoneNbr
+		FROM
+			HGAC_PRE_REFERRAL_to_Students ns
+			join students s on s.custom_53::text = ns.StudentNbr ::text
+			JOIN SJA si ON si.student_id = s.student_id :: numeric
+			
+                 Where 1=1 
+			AND si.imported = '$'
+			AND not exists (select '' from address where concat(upper(ns.mailaddress1),upper(ns.mailaddress2))::varchar =  concat(upper(address),upper(address2))::varchar and imported = '$')
+	) RETURNING *
+)
+SELECT
+	*
+FROM Addr_INS ;
+
+UPDATE address a 
+set           
+zipcode = UPPER(ns.ZipCode), 
+city = UPPER(ns.City), 
+state = UPPER(ns.State), 
+mail_city = UPPER(ns.MailCity),
+mail_state = UPPER(ns.MailState), 
+mail_zipcode = UPPER(ns.MailZipCode), 
+address = UPPER(ns.Addre1),
+mail_address = UPPER(ns.MailAddress1), 
+address2 = UPPER(ns.Addre2),
+mail_address2 = UPPER(ns.MailAddress2),
+phone = PhoneNbr
+FROM
+		        HGAC_PRE_REFERRAL_to_Students ns
+			join students s on s.custom_53::text = ns.StudentNbr ::text
+			JOIN students_join_address si ON si.student_id = s.student_id :: numeric
+			AND si.imported = '$'
+WHERE a.address_id = si.address_id
+and a.imported = '$'
+;
+
+;
+Update students s
+set 
+	last_name = Upper(h.LName),
+	first_name = upper(h.Fname),
+	middle_name = upper(h.MI),
+	name_suffix = h.suffix, 
+	imported = '$',
+	custom_200000000 = case when Sex = 'M' then 3405 when Sex = 'F' then 3406 end,
+	custom_400000016 = SSNbr,
+	custom_200000004 = BirthDte::TIMESTAMP,
+	custom_200000012 = EmailAddr,
+	custom_100000104 = case when substring(h.race,1,1)::INTEGER = '1' then 3226 else 3227 end,
+	custom_100000102 = case when substring(h.race,2,1)::INTEGER = '1' then 3228 else 3229 end,
+	custom_100000100 = case when substring(h.race,3,1)::INTEGER = '1' then 3391 else 3392 end,
+	custom_100000101 = case when substring(h.race,4,1)::INTEGER = '1' then 3230 else 3231 end,
+	custom_100000103 = case when substring(h.race,5,1)::INTEGER = '1' then 3232 else 3233 end,
+	custom_100000105 = case when substring(h.race,6,1)::INTEGER = '1' then 2479 else 2480 end,
+	--custom_l4465 = CASE WHEN trim(h.OVRDistNbr) = TRIM(cfso.code) then cfso.id END,
+	custom_l4461 = CASE WHEN trim(h.OVRDistNbr) = '100389' then 24134 
+						WHEN trim(h.OVRDistNbr) = '100391' then 24125 
+						WHEN trim(h.OVRDistNbr) = '100393' then 24127
+						WHEN trim(h.OVRDistNbr) = '100395' then 24128
+						WHEN trim(h.OVRDistNbr) = '100398' then 24121
+						WHEN trim(h.OVRDistNbr) = '100399' then 24130
+						WHEN trim(h.OVRDistNbr) = '100400' then 24132
+						WHEN trim(h.OVRDistNbr) = '100401' then 24131
+						WHEN trim(h.OVRDistNbr) = '100403' then 24122
+						WHEN trim(h.OVRDistNbr) = '100405' then 24123
+						WHEN trim(h.OVRDistNbr) = '100406' then 24126
+						WHEN trim(h.OVRDistNbr) = '100407' then 24135
+						WHEN trim(h.OVRDistNbr) = '100409' then 24124
+						WHEN trim(h.OVRDistNbr) = '100410' then 24129
+						WHEN trim(h.OVRDistNbr) = '100411' then 24133
+						WHEN trim(h.OVRDistNbr) in ('100390','100394', '100397', '100402', '100404', '100408') then 24156
+	END,
+		protected_student = case when h.protected = 'N' then null else h.protected end  ,
+		custom_l650 = case when h.Confidential = 'N' then null else h.Confidential end 
+FROM
+		HGAC_PRE_REFERRAL_to_Students h  
+		left join custom_field_select_options cfso on trim(h.OVRDistNbr) = TRIM(cfso.code) and cfso.source_id = 4465
+		where 1=1 
+		and s.custom_53::text = h.studentnbr::text
+;
+
+insert into student_enrollment (
+		id, 
+		syear, 
+		school_id, 
+		student_id, 
+		start_date, 
+		enrollment_code, 
+		imported
+)
+(
+select 	nextval('student_enrollment_seq')
+	,	{SYEAR} 
+	,	'177'::BIGINT 
+	,	student_id::BIGINT  
+	,	current_date + 1 start_date 
+	,	'4631' ::BIGINT
+	,	'$' 
+from HGAC_PRE_REFERRAL_to_Students h 
+	JOIN students s on s.custom_53::text = h.StudentNbr::text
+where not exists (select '' from student_enrollment se where se.student_id = s.student_id and se.start_date = current_date + 1 and se.enrollment_code = '4631')
+);
+
+do 
+$$
+declare v_cnt integer := 1;
+declare v_var varchar;
+declare v_sql varchar;
+begin
+
+drop table if exists t_json;
+create temp table t_json ( id serial, field_name varchar(255));
+insert into t_json(field_name)
+values ('custom_l4815'::text),('custom_l4816'::text),('custom_l4820'::text),('custom_l4821'::text),('custom_l6092'::text),('custom_l6093'::text),('custom_l6094'::text),('custom_l6095'::text),('custom_l6096'::text),('custom_l6097'::text);
+
+while v_cnt <= (select max(id) from t_json) loop
+
+	v_var := (select field_name from t_json where id = v_cnt);
+
+
+with import_studs as (
+select distinct on (studentnbr)
+studentnbr, 
+cfso.code as ione, cfso1.code as itwo, cfso2.code as ithree, cfso3.code as ifour 
+from hgac_pre_referral_to_students 
+left join custom_field_select_options cfso on primary_service::text = cfso.id::text and cfso.source_id = 4815 
+left join custom_field_select_options cfso1 on secondary_service::text = cfso1.id::text and cfso1.source_id = 4816
+left join custom_field_select_options cfso2 on third_service::text = cfso2.id::text and cfso2.source_id = 4820
+left join custom_field_select_options cfso3 on fourth_service::text = cfso3.id::text and cfso3.source_id = 4821
+) 
+,data as (
+select 
+	custom_53, 
+	array_agg(cfso.code || '01') 
+|| 	array_agg(cfso1.code || '02') 
+|| 	array_agg(cfso2.code || '03') 
+|| 	array_agg(cfso3.code || '04') 
+|| 	array_agg(cfso4.code || '05') 
+|| 	array_agg(cfso5.code || '06') 
+|| 	array_agg(cfso6.code || '07') 
+|| 	array_agg(cfso7.code || '08') 
+|| 	array_agg(cfso8.code || '09') 
+|| 	array_agg(cfso9.code || '10') 
+|| 	array_agg(si.ione::text || '11') 
+|| 	array_agg(si.itwo::text || '12') 
+|| 	array_agg(si.ithree::text || '13')  
+|| 	array_agg(si.ifour::text || '14') services 
+from students s
+join import_studs si on s.custom_53::text = si.studentnbr ::text
+left join custom_field_select_options cfso on nullif(custom_fields ->> 'custom_l4815','')::text = cfso.id::text and cfso.source_id = 4815 
+left join custom_field_select_options cfso1 on nullif(custom_fields ->> 'custom_l4816','')::text = cfso1.id::text and cfso1.source_id = 4816
+left join custom_field_select_options cfso2 on nullif(custom_fields ->> 'custom_l4820','')::text = cfso2.id::text and cfso2.source_id = 4820
+left join custom_field_select_options cfso3 on nullif(custom_fields ->> 'custom_l4821','')::text = cfso3.id::text and cfso3.source_id = 4821
+left join custom_field_select_options cfso4 on (custom_fields ->> 'custom_l6092')::text = cfso4.id::text and cfso4.source_id = 6092
+left join custom_field_select_options cfso5 on (custom_fields ->> 'custom_l6093')::text = cfso5.id::text and cfso5.source_id = 6093
+left join custom_field_select_options cfso6 on (custom_fields ->> 'custom_l6094')::text = cfso6.id::text and cfso6.source_id = 6094
+left join custom_field_select_options cfso7 on (custom_fields ->> 'custom_l6095')::text = cfso7.id::text and cfso7.source_id = 6095
+left join custom_field_select_options cfso8 on (custom_fields ->> 'custom_l6096')::text = cfso8.id::text and cfso8.source_id = 6096
+left join custom_field_select_options cfso9 on (custom_fields ->> 'custom_l6097')::text = cfso9.id::text and cfso9.source_id = 6097
+group by 1
+) 
+, data_prep as (
+select 
+custom_53, 
+unnest(services) 
+as services
+from data 
+where services is not null 
+group by 1,2
+)	
+, data_table1 as (
+select distinct on (custom_53,services)
+custom_53, 
+substring(services,1,5) as services,
+right(services,2) as sort  
+from data_prep 
+where services is not null and left(services, 3)::INTEGER > 15
+group by 1,2,3
+order by 1,2
+)
+, data_table as (
+select 
+	custom_53, 
+	services,
+	sort 
+ from data_table1
+order by 1,3
+) 
+, data1 as (
+select custom_53, 
+array_agg(services) services,
+max(sort)
+from data_table 
+where coalesce(regexp_replace(nullif(services,''),'[^0-9]', '', 'g'),'N') != 'N' 
+group by 1
+) 
+, services_table as (
+select custom_53,
+	cfso.id as one, 
+	cfso1.id as two,
+	cfso2.id as three,
+	cfso3.id as four,
+	cfso4.id as five,
+	cfso5.id as six,
+	cfso6.id as seven,
+	cfso7.id as eight,
+	cfso8.id as nine ,
+	cfso9.id as ten
+from data1 d 
+left join custom_field_select_options cfso on d.services[1]::VARCHAR = cfso.code ::VARCHAR and cfso.source_id = 4815 
+left join custom_field_select_options cfso1 on d.services[2]::VARCHAR = cfso1.code ::VARCHAR and cfso1.source_id = 4816 
+left join custom_field_select_options cfso2 on d.services[3]::VARCHAR = cfso2.code ::VARCHAR and cfso2.source_id = 4820
+left join custom_field_select_options cfso3 on d.services[4]::VARCHAR = cfso3.code ::VARCHAR and cfso3.source_id = 4821
+left join custom_field_select_options cfso4 on d.services[5]::VARCHAR = cfso4.code ::VARCHAR and cfso4.source_id = 6092 
+left join custom_field_select_options cfso5 on d.services[6]::VARCHAR = cfso5.code ::VARCHAR and cfso5.source_id = 6093 
+left join custom_field_select_options cfso6 on d.services[7]::VARCHAR = cfso6.code ::VARCHAR and cfso6.source_id = 6094
+left join custom_field_select_options cfso7 on d.services[8]::VARCHAR = cfso7.code ::VARCHAR and cfso7.source_id = 6095
+left join custom_field_select_options cfso8 on d.services[9]::VARCHAR = cfso8.code ::VARCHAR and cfso8.source_id = 6096
+left join custom_field_select_options cfso9 on d.services[10]::VARCHAR = cfso9.code ::VARCHAR  and cfso9.source_id = 6097
+) 
+
+	update students s
+	set custom_fields = jsonb_set(coalesce(custom_fields,'{}')::jsonb, concat('{',v_var,'}')::text[], value::varchar::jsonb, true)
+	from ( 
+		select custoM_53,
+case when v_var = 'custom_l4815' then one
+when v_var =  'custom_l4816' then two 
+when v_var = 'custom_l4820' then three 
+when v_var = 'custom_l4821' then four 
+when v_var = 'custom_l6092' then five 
+when v_var = 'custom_l6093' then six 
+when v_var = 'custom_l6094' then seven 
+when v_var = 'custom_l6095' then eight 
+when v_var = 'custom_l6096' then nine 
+when v_var = 'custom_l6097' then ten end as value
+ from services_table
+) a
+	where 1=1
+	and a.value is not null
+	and s.custom_53 = a.custom_53
+	;
+	v_cnt := v_cnt + 1;
+
+end loop;
+
+end;
+$$
+LANGUAGE plpgsql;
+
+
+
+;
+
+
+do 
+$$
+declare v_cnt integer := 1;
+declare v_var varchar;
+declare v_sql varchar;
+begin
+
+drop table if exists t_json;
+create temp table t_json ( id serial, field_name varchar(255));
+insert into t_json(field_name)
+values ('custom_l4469'::text),('custom_l4790'::text),('custom_l4810'::text),('custom_l4791'::text),('custom_l4811'::text),('custom_l4446'::text),('custom_l4447'::text),('custom_l4499'::text),('custom_l4495'::text),('custom_l4500'::text),('custom_l4452'::text),('custom_l4451'::text),('custom_l4427'::text),('custom_l4443'::text),('custom_l4444'::text),('custom_l4463'::text),('custom_l4437'::text),('custom_l4465'::text),('custom_l4461'::text),('custom_l4434'::text),('custom_l4445'::text),('custom_l4498'::text),('custom_l4501'::text),('custom_l4502'::text),('custom_l4503'::text),('custom_l4504'::text),('custom_l4505'::text),('custom_l4496'::text),('custom_l4497'::text),('custom_l4506'::text),('custom_l4475'::text),('custom_l4464'::text),('custom_l4476'::text),('custom_l4477'::text),('custom_l4468'::text),('custom_l4815'::text),('custom_l4816'::text),('custom_l4820'::text),('custom_l4821'::text),('custom_l5953'::text);
+
+while v_cnt <= (select max(id) from t_json) loop
+
+	v_var := (select field_name from t_json where id = v_cnt);
+	
+	update students s
+	set custom_fields = jsonb_set(coalesce(custom_fields,'{}')::jsonb, concat('{',v_var,'}')::text[], value::text::jsonb, true)
+	from (select stu.student_id, 
+(case when v_var = 'custom_l4469' then CASE WHEN h.Citizen = cfso0.code then cfso0.id end::varchar
+ when v_var = 'custom_l4790' then CASE WHEN Substring(h.MDis,1,2) = cfso.code then cfso.id end::varchar
+ when v_var = 'custom_l4810' then CASE WHEN Substring(h.MDis,3,2) = cfso1.code then cfso1.id end::varchar
+ when v_var = 'custom_l4791' then CASE WHEN substring(h.SDis,1,2) = cfso2.code then cfso2.id end::varchar
+ when v_var = 'custom_l4811' then CASE WHEN substring(h.SDis,3,2) = cfso3.code then cfso3.id end::varchar
+ when v_var = 'custom_l4446' then CASE WHEN h.BVSind = cfso4.code then cfso4.id end::varchar
+ when v_var = 'custom_l4447' then CASE WHEN h.SevInd = cfso5.code then cfso5.id end::varchar
+ when v_var::text = 'custom_l4499'::text then (Case when substring(h.Vocational_Rehabilitation::varchar,1,3)::varchar = '111'::text then '[24996, 24997, 24998]'::varchar
+	 when substring(h.Vocational_Rehabilitation,1,2)::varchar = '11' then '[24996, 24997]'
+	 when substring(h.Vocational_Rehabilitation,2,3) = '11' then '[24997, 24998]'
+	 when substring(h.Vocational_Rehabilitation,1,1) = '1'  and substring(h.Vocational_Rehabilitation,3,1) = '1' then '[24996, 24998]'
+	 when substring(h.Vocational_Rehabilitation,1,1) = '1'  and substring(h.Vocational_Rehabilitation,2,1) = '1' then '[24996, 24997]'
+	 when substring(h.Vocational_Rehabilitation,2,1) = '1'  and substring(h.Vocational_Rehabilitation,3,1) = '1' then '[24997, 24998]'
+	 WHEN substring(h.Vocational_Rehabilitation,1,1) = '1' then '[24996]'
+	 when substring(h.Vocational_Rehabilitation,2,1) = '1' then '[24997]'
+	 when substring(h.Vocational_Rehabilitation,3,1) = '1' then '[24998]' end)::varchar
+ when v_var = 'custom_l4495' then CASE WHEN trim(h.TryOut_Program) = trim(cfso7.code) then cfso7.id end::varchar
+ when v_var = 'custom_l4500' then CASE WHEN substring(h.BVS_Eval,1,1) = cfso8.code then cfso8.id
+								when substring(h.BVS_Eval,2,1) = cfso8.code then cfso8.id
+								when substring(h.BVS_Eval,3,1) = cfso8.code then cfso8.id
+							end::varchar
+ when v_var = 'custom_l4452' then Case when h.training_program = cfso9.code then cfso9.id end::varchar
+ when v_var = 'custom_l4451' then CASE WHEN substring(h.EDUC_SERV,1,1) = cfso10.code then cfso10.id 
+							WHEN substring(h.EDUC_SERV,2,1) = cfso10.code then cfso10.id 
+							end::varchar
+ when v_var = 'custom_l4427' then CASE WHEN substring(h.CSEP_SERV,1,1) = cfso11.code then cfso10.id 
+							WHEN substring(h.CSEP_SERV,2,1) = cfso11.code then cfso10.id 
+								end::varchar
+ when v_var = 'custom_l4443' then CASE WHEN h.HGACInd = cfso12.code then cfso12.id end::varchar
+ when v_var = 'custom_l4444' then CASE WHEN h.SOC = cfso13.code then cfso13.id end::varchar
+ when v_var = 'custom_l4463' then CASE WHEN TRIM(h.OVRCn)::VARCHAR = TRIM(cfso14.code)::VARCHAR then cfso14.id end::varchar
+ when v_var = 'custom_l4437' then CASE WHEN h.VETERAN = cfso15.code then cfso15.id end::varchar
+ when v_var = 'custom_l4465' then CASE WHEN trim(h.OVRDistNbr) = TRIM(cfso16.code) then cfso16.id end::varchar
+ when v_var = 'custom_l4461' then CASE WHEN trim(h.OVRDistNbr) = TRIM(cfso16.code) then cfso16.id end::varchar
+ when v_var = 'custom_l4434' then CASE WHEN h.ClientStat = cfso17.code then cfso17.id end::varchar
+ when v_var = 'custom_l4445' then CASE WHEN h.OVRRefDte = cfso18.code then cfso18.id end::varchar
+ when v_var = 'custom_l4498' then Case when trim(h.program_type) = TRIM(cfso19.code) then cfso19.id end::varchar
+ when v_var = 'custom_l4501' then CASE WHEN substring(h.EDUC_serv,1,1)::INTEGER = 1 then 25002 
+								WHEN substring(h.EDUC_serv,2,1)::INTEGER = 1 then 25003 end::varchar
+ when v_var = 'custom_l4502' then CASE WHEN substring(h.CSEP_serv,1,1)::INTEGER = 1 then 25004 
+								WHEN substring(h.CSEP_serv,2,1)::INTEGER = 1 then 25005 end::varchar
+ when v_var = 'custom_l4503' then CASE WHEN substring(h.ASST_TECH,1,1)::INTEGER = 1 then 25006
+								WHEN substring(h.ASST_TECH,2,1)::INTEGER = 1 then 25007
+								WHEN substring(h.ASST_TECH,3,1)::INTEGER = 1 then 25008
+								WHEN substring(h.ASST_TECH,4,1)::INTEGER = 1 then 25009
+								WHEN substring(h.ASST_TECH,5,1)::INTEGER = 1 then 25010 
+								WHEN substring(h.ASST_TECH,6,1)::INTEGER = 1 then 25011 
+								WHEN substring(h.ASST_TECH,7,1)::INTEGER = 1 then 25012 
+								WHEN substring(h.ASST_TECH,8,1)::INTEGER = 1 then 25013 
+								WHEN substring(h.ASST_TECH,9,1)::INTEGER = 1 then 25014 
+								WHEN substring(h.ASST_TECH,10,1)::INTEGER = 1 then 25015 
+											end::varchar
+ when v_var = 'custom_l4504' then CASE WHEN substring(h.Health_Service,1,1)::integer = 1 then 25016 
+								WHEN substring(h.Health_Service,2,1)::INTEGER = 1 then 25017 
+								WHEN substring(h.Health_Service,3,1)::INTEGER = 1 then 25018 
+								WHEN substring(h.Health_Service,4,1)::INTEGER = 1 then 25019 
+								WHEN substring(h.Health_Service,5,1)::INTEGER = 1 then 25020 
+								WHEN substring(h.Health_Service,6,1)::INTEGER = 1 then 25021 
+											end::varchar							 	 
+  when v_var = 'custom_l4505' then CASE WHEN substring(h.Driv_Eval,1,1)::INTEGER = 1 then 25022
+								WHEN substring(h.Driv_Eval,2,1)::INTEGER = 1 then 25023 end::varchar
+ when v_var = 'custom_l4496' then CASE WHEN h.Driv_educ = cfso20.code then cfso20.id end::varchar
+ when v_var = 'custom_l4497' then CASE WHEN h.Driv_Vend = cfso21.code then cfso21.id end::varchar
+  when v_var = 'custom_l4506' then CASE WHEN substring(h.Driv_Services,1,1)::INTEGER = 1 then 25025
+								WHEN substring(h.Driv_Services,2,1)::INTEGER = 1 then 25026 
+								WHEN substring(h.Driv_Services,3,1)::INTEGER = 1 then 25027
+											end::varchar
+ when v_var = 'custom_l4475' then CASE WHEN h.ResReq106 = cfso22.code then cfso22.id end::varchar
+ when v_var = 'custom_l4464' then CASE WHEN h.FinStat = cfso23.code then cfso23.id end::varchar
+ when v_var = 'custom_l4476' then CASE WHEN h.PHEAA = cfso24.code then cfso24.id end::varchar 
+ when v_var = 'custom_l4477' then CASE WHEN h.Pell = cfso25.code then cfso25.id end::varchar   
+ when v_var = 'custom_l4468' then CASE WHEN h.county::numeric = cfso26.code::NUMERIC  then cfso26.id end ::varchar  
+ 	when v_var = 'custom_l4815' then replace(primary_service, '', '0')::varchar 
+ 	when v_var = 'custom_l4816' then replace(secondary_service, '', '0')::varchar 
+ 	when v_var = 'custom_l4820' then replace(third_service,'', '0')::varchar
+ 	when v_var = 'custom_l4821' then replace(fourth_service,'', '0')::varchar
+ 	when v_var = 'custom_l5953' then replace(h.Keystone_Username,'', '0')::varchar 
+end)::varchar as value
+
+from 	HGAC_PRE_REFERRAL_to_Students h
+            join students stu on h.studentnbr::text = stu.custom_53::text
+			left join custom_field_select_options cfso0 on h.Citizen = cfso0.code and cfso0.source_id = 4469
+			left join custom_field_select_options cfso on Substring(h.MDis,1,2) = cfso.code and cfso.source_id = 4790
+			left join custom_field_select_options cfso1 on Substring(h.MDis,3,2) = cfso1.code and cfso1.source_id = 4810
+			left join custom_field_select_options cfso2 on Substring(h.SDis,1,2) = cfso2.code and cfso2.source_id = 4791
+			left join custom_field_select_options cfso3 on Substring(h.SDis,3,2) = cfso3.code and cfso3.source_id = 4811
+			left join custom_field_select_options cfso4 on BVSind = cfso4.code and cfso4.source_id = 4446
+			left join custom_field_select_options cfso5 on SevInd = cfso5.code and cfso5.source_id = 4447
+			--left join custom_field_select_options cfso6 on (substring(h.Vocational_Rehabilitation,1,1) = cfso6.code or 			 	 
+ 			--						substring(h.Vocational_Rehabilitation,2,1) = cfso6.code or  
+ 			--						substring(h.Vocational_Rehabilitation,3,1) = cfso6.code) and 
+  			--						cfso6.source_id = 4499
+			left join custom_field_select_options cfso7 on TRIM(h.TryOut_Program) = TRIM(cfso7.code) and cfso7.source_id = 4495
+			left join custom_field_select_options cfso8 on (substring(h.BVS_Eval,1,1) = cfso8.code or 
+									substring(h.BVS_Eval,2,1) = cfso8.code or 
+									substring(h.BVS_Eval,3,1) = cfso8.code) and
+									cfso8.source_id = 4500
+			left join custom_field_select_options cfso9 on h.training_program = cfso9.code and cfso9.source_id = 4452
+			left join custom_field_select_options cfso10 on (substring(h.EDUC_SERV,1,1) = cfso10.code or 
+									substring(h.EDUC_SERV,2,1) = cfso10.code) and 
+									cfso10.source_id = 4451
+			left join custom_field_select_options cfso11 on (substring(h.CSEP_SERV,1,1) = cfso11.code or 
+									substring(h.CSEP_SERV,2,1) = cfso11.code) and 
+									cfso11.source_id = 4427
+			left join custom_field_select_options cfso12 on h.HGACInd = cfso12.code and cfso12.source_id = 4443
+			left join custom_field_select_options cfso13 on h.SOC = cfso13.code and cfso13.source_id = 4444
+			left join custom_field_select_options cfso14 on TRIM(h.OVRCn)::VARCHAR = TRIM(cfso14.code)::VARCHAR and cfso14.source_id = 4463
+			left join custom_field_select_options cfso15 on h.VETERAN = cfso15.code and cfso15.source_id = 4437
+			left join custom_field_select_options cfso16 on trim(h.OVRDistNbr) = TRIM(cfso16.code) and cfso16.source_id = 4465
+			left join custom_field_select_options cfso17 on h.ClientStat = cfso17.code and cfso17.source_id = 4434
+			left join custom_field_select_options cfso18 on h.OVRRefDte = cfso18.code and cfso18.source_id = 4445
+			left join custom_field_select_options cfso19 on trim(h.program_type) = TRIM(cfso19.code) and cfso19.source_id = 4498
+			left join custom_field_select_options cfso20 on h.Driv_educ = cfso20.code and cfso20.source_id = 4496
+			left join custom_field_select_options cfso21 on h.Driv_Vend = cfso21.code and cfso21.source_id = 4497
+			left join custom_field_select_options cfso22 on h.ResReq106 = cfso22.code and cfso22.source_id = 4475
+			left join custom_field_select_options cfso23 on h.FinStat = cfso23.code and cfso23.source_id = 4464
+			left join custom_field_select_options cfso24 on h.PHEAA = cfso24.code and cfso24.source_id = 4476
+			left join custom_field_select_options cfso25 on h.Pell = cfso25.code and cfso25.source_id = 4477
+			left join custom_field_select_options cfso26 on h.county::numeric = cfso26.code::numeric and cfso26.source_id = 4468
+
+
+) b
+	where 1=1
+	and b.value is not null
+	and s.student_id = b.student_id
+	;
+	v_cnt := v_cnt + 1;
+
+end loop;
+
+end;
+$$
+LANGUAGE plpgsql;
+
