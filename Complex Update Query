@@ -1,0 +1,88 @@
+CREATE INDEX IF NOT EXISTS idx_rasd_primero_import ON rasd_frlunch_data_dump_temp (STUDENTID);
+
+--------------------------------------------------
+
+--INSERT A NEW RECORD IF ELIGIBILITY STATUS DOESNT EXIST IN THE CURRENT YEAR
+INSERT INTO custom_field_log_entries (
+	syear, source_class, source_id, field_id,
+	log_field1, log_field2, log_field3,
+	log_field4)
+
+SELECT
+	syear :: int,
+	source_class,
+	source_id :: int,
+	field_id :: int,
+	log_field1 :: text,
+	log_field2 :: text,
+	log_field3,
+	to_char(log_field4, 'mmddyyyy') AS log_field4
+FROM
+	(
+		SELECT
+			DISTINCT t2.syear,
+			t2.source_class,
+			t2.field_id,
+			t2.source_id,
+			ec1.id AS log_field1,
+			ec2.id AS log_field2,
+			CASE WHEN eligibilitycode IN ('F', 'R', '1', '2') THEN '8981' ELSE '8982' END AS log_field3,
+			t2.eligibilitystartdate AS log_field4
+		FROM
+			(
+				SELECT
+					'2021' AS syear,
+					'SISStudent' AS source_class,
+					'914' AS field_id,
+					STUDENTID AS Primero_id,
+					s.student_id AS source_id,
+					CASE WHEN ELIGIBILITYCODE = '1' THEN 'F' WHEN ELIGIBILITYCODE = '2' THEN 'R' WHEN ELIGIBILITYCODE = '3' THEN 'N' WHEN ELIGIBILITYCODE = 'P' THEN 'N' ELSE ELIGIBILITYCODE END AS ELIGIBILITYCODE,
+					ELIGIBILITYSTARTDATE
+				FROM
+					rasd_frlunch_data_dump_temp t
+					JOIN students s ON s.custom_53 = t.studentid
+				WHERE
+					s.district_id = '24'
+			) t2
+			LEFT JOIN (
+				SELECT
+					*
+				FROM
+					custom_field_select_options
+				WHERE
+					source_id = '421'
+					AND source_class = 'CustomFieldLogColumn'
+			) ec2 ON ec2.code = t2.eligibilitycode
+			LEFT JOIN (
+				SELECT
+					*
+				FROM
+					custom_field_select_options
+				WHERE
+					source_id = '420'
+					AND source_class = 'CustomFieldLogColumn'
+			) ec1 ON ec1.code = t2.eligibilitycode
+	) t3
+WHERE
+	CONCAT(
+		t3.syear, '-', t3.source_class, '-',
+		t3.source_id, '-', t3.log_field2
+	) NOT IN (
+		SELECT
+			CONCAT(
+				syear, '-', source_class, '-', source_id,
+				'-', log_field2
+			)
+		FROM
+			custom_field_log_entries
+		WHERE
+			field_id = '914'
+			AND source_id IN (
+				SELECT
+					student_id
+				FROM
+					students
+				WHERE
+					district_id = '24'
+			)
+	);
