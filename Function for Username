@@ -1,0 +1,45 @@
+CREATE OR REPLACE FUNCTION "public"."fn_username"("pstudent_id" int8)
+  RETURNS "pg_catalog"."void" AS $BODY$ 
+DECLARE 
+v_cnt integer := 1;
+v_name text := (select username from students where student_id = pstudent_id);  
+v_studid varchar (4) = (select left(student_id::VARCHAR, 4) from students where student_id = pstudent_id);
+v_Fname INTEGER := (select length(first_name) from students where student_id = pstudent_id);
+BEGIN
+
+IF v_name is null and pstudent_id > 0 THEN
+SELECT INTO v_name LOWER(CONCAT(LEFT(first_name, v_cnt),LEFT(Middle_name, 1),(regexp_replace(last_name, '[^a-zA-Z0-9-]+', '', 'g'))))
+FROM students
+WHERE
+	1 = 1
+	AND student_id = pstudent_id;
+
+
+While v_cnt <= v_Fname and exists (SELECT '' FROM students WHERE username = v_name)
+LOOP 
+    v_name := LOWER(CONCAT(LEFT(first_name, v_cnt),LEFT(Middle_name, 1),(regexp_replace(last_name, '[^a-zA-Z0-9-]+', '', 'g')))) 
+	from students 
+	where 1 = 1
+	AND student_id = pstudent_id;
+       
+ v_cnt := v_cnt + 1;
+    END LOOP;
+
+if v_cnt > v_Fname 
+	then v_name := concat(v_name, v_studid);
+
+END if;
+END IF;
+	UPDATE
+		students
+	SET
+		
+		username = v_name 
+	WHERE
+		student_id = pstudent_id;
+
+END;
+
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100
